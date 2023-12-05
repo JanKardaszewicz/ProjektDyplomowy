@@ -17,29 +17,27 @@ districts = ["Stare Miasto","Grzegórzki", "Prądnik Czerwony", "Prądnik Biały
              "Swoszowice", "Podgórze Duchackie", "Bieżanów-Prokocim", "Podgórze", "Czyżyny", "Mistrzejowice", "Bieńczyce", "Wzgórza Krzesławickie", "Nowa Huta"]
 
 """Getting geo data from files"""
+def read_file(file_name: str) -> str:
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    data_directory = "../data"
 
-script_dir = os.path.dirname(os.path.abspath(__file__))
-data_directory = '../data'
-
-file_name = 'mieszkania.csv'
-file_path = os.path.join(script_dir, data_directory, file_name)
+    file_name = file_name
+    file_path = os.path.join(script_dir, data_directory, file_name)
+    return file_path
 
 #TODO Automat do pozyskania wiekszej liczby danych lub jakos pozyskac duzo danych nwm jak jeszcze :(
-df = pd.read_csv(file_path , sep=";")
-
-file_name = "Dzielnice_administracyjne2.geojson"
-file_path = os.path.join(script_dir, data_directory, file_name)
-with open(file_path,encoding="utf8") as f:
+df = pd.read_csv(read_file("mieszkania.csv") , sep=";")
+with open(read_file("Dzielnice_administracyjne2.geojson"),encoding="utf8") as f:
     gj = json.load(f)
 
 #TODO Narazie uzywam gotowych plikow utworzonych losowo - wyliaczanie srednich dopiero po uzyskaniu wiekszej liczby dancyh
 
 """Calculating the analysys data"""
 
-mean_price_df = pd.read_csv("mieszkania_srednia.csv")
+mean_price_df = pd.read_csv(read_file("mieszkania_srednia.csv"))
 mean_price_df["srednia_cena_za_m2"] = pd.to_numeric(mean_price_df["srednia_cena_za_m2"])
 
-mean_area_df = pd.read_csv("mieszkania_powierzchnia.csv")
+mean_area_df = pd.read_csv(read_file("mieszkania_powierzchnia.csv"))
 mean_area_df["srednia_powierzchnia"] = pd.to_numeric(mean_area_df["srednia_powierzchnia"])
 
 
