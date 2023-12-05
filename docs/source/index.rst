@@ -1,5 +1,5 @@
 .. Projekt Dyplomowy documentation master file, created by
-   sphinx-quickstart on Tue Dec  5 21:59:22 2023.
+   sphinx-quickstart on Tue Dec  5 22:41:37 2023.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
@@ -10,7 +10,10 @@ Welcome to Projekt Dyplomowy's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-
+   modules
+   data
+   graphs
+   tests
 
 Indices and tables
 ==================

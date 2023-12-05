@@ -46,7 +46,9 @@ def choose_df(df: DataFrame, dzielnice: list[str]) -> DataFrame:
     Function choosing desired DataFrame.
     
     :param df: initial dataframe
+    :type df: Dataframe
     :param dzielnice: chosen districts
+    :type dzielnice: list[str]
     :return: dataframe created according to chosen districts
     """
     new_df = df.loc[df["Dzielnica"].isin(dzielnice)]
