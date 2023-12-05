@@ -12,6 +12,7 @@ def init_graph(size: str = "Powierzchnia") -> px:
     Initial graph figure creation for display layout.
     
     :param size: determines what size of points on graph should be set by
+    :type size: string
     :return: initial figure
     """
 
