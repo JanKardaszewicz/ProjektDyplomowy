@@ -1,6 +1,7 @@
 #Project Jan Kardaszewicz 
 
 from layouts import *
+from dash import Dash, Input, Output, callback_context
 
 """START APP"""
 
@@ -27,17 +28,19 @@ app.layout = html.Div([
     Input("display-dropdown", "value"),
 )
 
-def display_layout(display_type: str) -> html:
+def display(display_type: str):
     """
     Callback function changing displayed layout according to dropdown values.
 
     :param display_type: determines what type of layout should be displayed
-    :return: updated layout
+    :type display_type: str
+    Returns:
+        dash.html: updated layout
     """
     if display_type == "Display":
-        return initial_layout
+        return initial_layout()
     if display_type == "Analysys":
-        return  analysys_layout
+        return  analysys_layout()
 
 
 """DISPLAY CALLBACK"""
@@ -48,13 +51,16 @@ def display_layout(display_type: str) -> html:
     Input("points_size_switch", "value"),
 )
 
-def update_output(on_administrative_layer: bool, size_switch_value: bool) -> dcc:
+def update_output(on_administrative_layer: bool, size_switch_value: bool):
     """
     Callback function changing graph according to switches values.
 
     :param on_administrative_layer: determines if administrative_layer is on or off
+    :type on_administrative_layer: bool
     :param size_switch_value: determines if size of points is set by Price or Area
-    :return: updated graph 
+    :type size_switch_value: bool
+    Returns:
+        dash.dcc: updated graph 
     """
     if size_switch_value:
         fig = init_graph(size="Cena")
@@ -71,12 +77,14 @@ def update_output(on_administrative_layer: bool, size_switch_value: bool) -> dcc
     Input("points_size_switch", "value"),
 )
 
-def display_text(value: bool) -> str:
+def display_text(value: bool):
     """
     Callback function displaying text according to switch value.
 
     :param value: value of switch
-    :return: text text if the size of points is determined by Price or Area
+    :type value: bool
+    Returns:
+        str:  text text if the size of points is determined by Price or Area
     """
 
     if value:
@@ -90,12 +98,14 @@ def display_text(value: bool) -> str:
     Input("administrative_layout_switch", "value"),
 ) 
 
-def display_text2(value: bool) -> str:
+def display_text2(value: bool):
     """
     Callback function displaying text according to switch value.
 
     :param value: value of switch
-    :return: text if the administrative_layout is displayed or not
+    :type value: bool
+    Returns:
+        str: text if the administrative_layout is displayed or not
     """
     if value:
         return "On"
@@ -111,13 +121,16 @@ def display_text2(value: bool) -> str:
     Input("districts-checklist", "value"),
     Input("all-checklist", "value"),
 )
-def sync_checklists(districts_selected: list[str], all_selected: list[str]) -> Tuple[list[str], list[str]]:
+def sync_checklists(districts_selected: list[str], all_selected: list[str]):
     """
     Callback function to sync 'Wszystkie' button in checklists with all the others.
 
     :param districts_selected: all parts of Kraków selected in checklist
+    :type districts_selected: list[str]
     :param all_selected: button sellecting all parts of Krakow if all parts are selected this button is selected automaticly.
-    :return: checked values of checklists 
+    :type all_selected: list[str]
+    Returns:
+        Touple[list[str], list[str]: checked values of both checklists 
     """
 
     ctx = callback_context
@@ -139,13 +152,16 @@ def sync_checklists(districts_selected: list[str], all_selected: list[str]) -> T
     [Input("all-checklist", "value")],
 )
 
-def change_displayed_city_part(city_part: list[str], check_all: list[str]) -> dcc:
+def change_displayed_city_part(city_part: list[str], check_all: list[str]):
     """
     Callback function to sync checklists with the graphs.
 
     :param city_part: all parts of Kraków selected in checklist
+    :type city_part: list[str]
     :param check_all: button sellecting all parts of Krakow if all parts are selected this button is selected automaticly.
-    :return: figures set accordingly to checklists checked values
+    :type check_all: list[str]
+    Returns:
+        List[dash.dcc, plotly.express, plotly.express, plotly.express, plotly.express]: figures set accordingly to checklists checked values
     """
 
     analysys_fig = choropleth_graph()

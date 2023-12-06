@@ -1,49 +1,62 @@
 #import libraries
 from graphs import *
-from dash import Dash, dcc, html, Input, Output, callback_context
+from dash import dcc, html 
 import dash_daq as daq
-from typing import Tuple
 
 """LAYOUTS"""
 
 """Initial/Display layout template"""
-initial_layout = html.Div([
-    html.Div([
-        html.Div([
-            dcc.Graph(
-            figure = display_fig
-            )], id="initial_layout", style={"display": "inline-block","margin-right": "10px", "margin-top": "10px"}
-        ),],
-    ),
-    html.Div(
-    [
+def initial_layout():
+    """
+    Function organising initial display layout for application
+    
+    Returns:
+        html.Div: initial layout
+    """
+    return html.Div([
         html.Div([
             html.Div([
-            daq.ToggleSwitch(
-                id="administrative_layout_switch", value=False, color="red",label="Podział administracyjny na dzielnice",
-                labelPosition="top")], style={"display": "inline-block", "margin-right": "10px", "verticalAlign": "bottom", "text-align": "bottom","margin-left": "0px", "width": "275px", "margin-top": "10px"}
-            ),
-            html.Div(
-                id="administrative_layout_switch_output-text", style={"display": "inline-block", "text-align": "center", "width": "20px", "margin-top": "10px", "margin-left": "-110px"}
-            ),
+                dcc.Graph(
+                figure = display_fig
+                )], id="initial_layout", style={"display": "inline-block","margin-right": "10px", "margin-top": "10px"}
+            ),],
+        ),
+        html.Div(
+        [
             html.Div([
+                html.Div([
                 daq.ToggleSwitch(
-                    id="points_size_switch",
-                    value=False,
-                    color="red",
-                    label="Size of points",
-                    labelPosition="top"
-                )], style={"display": "inline-block","verticalAlign": "bottom", "text-align": "top", "width": "200px", "margin-top": "20px", "margin-left": "50px"}
-            ),
-            html.Div(
-                id="points_size_switch_output-text", style={"display": "inline-block", "verticalAlign": "middle", "width": "50px", "margin-left": "-50px", "margin-bottom": "5px"}
-            ),
-        ],),
-    ],),       
-])
+                    id="administrative_layout_switch", value=False, color="red",label="Podział administracyjny na dzielnice",
+                    labelPosition="top")], style={"display": "inline-block", "margin-right": "10px", "verticalAlign": "bottom", "text-align": "bottom","margin-left": "0px", "width": "275px", "margin-top": "10px"}
+                ),
+                html.Div(
+                    id="administrative_layout_switch_output-text", style={"display": "inline-block", "text-align": "center", "width": "20px", "margin-top": "10px", "margin-left": "-110px"}
+                ),
+                html.Div([
+                    daq.ToggleSwitch(
+                        id="points_size_switch",
+                        value=False,
+                        color="red",
+                        label="Size of points",
+                        labelPosition="top"
+                    )], style={"display": "inline-block","verticalAlign": "bottom", "text-align": "top", "width": "200px", "margin-top": "20px", "margin-left": "50px"}
+                ),
+                html.Div(
+                    id="points_size_switch_output-text", style={"display": "inline-block", "verticalAlign": "middle", "width": "50px", "margin-left": "-50px", "margin-bottom": "5px"}
+                ),
+            ],),
+        ],),       
+    ])
 
 """Analysys layout template"""
-analysys_layout = html.Div([
+def analysys_layout():
+    """
+    Function organising analysys display layout for application
+    
+    Returns:
+        html.Div: analysys layout
+    """
+    return html.Div([
         html.Div([
         html.Label(["Wyświetlane dzielnice:"], style={"font-weight": "bold", "text-align": "center"}),  
         dcc.Checklist(

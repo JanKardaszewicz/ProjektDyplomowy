@@ -17,7 +17,14 @@ districts = ["Stare Miasto","Grzegórzki", "Prądnik Czerwony", "Prądnik Biały
              "Swoszowice", "Podgórze Duchackie", "Bieżanów-Prokocim", "Podgórze", "Czyżyny", "Mistrzejowice", "Bieńczyce", "Wzgórza Krzesławickie", "Nowa Huta"]
 
 """Getting geo data from files"""
-def read_file(file_name: str) -> str:
+def read_file(file_name: str):
+    """Function to read files from data directory in Workspace
+
+    :param file_name: name of file to read
+    :type file_name: str
+    Returns:
+        str: full file path
+    """
     script_dir = os.path.dirname(os.path.abspath(__file__))
     data_directory = "../data"
 
@@ -41,7 +48,7 @@ mean_area_df = pd.read_csv(read_file("mieszkania_powierzchnia.csv"))
 mean_area_df["srednia_powierzchnia"] = pd.to_numeric(mean_area_df["srednia_powierzchnia"])
 
 
-def choose_df(df: DataFrame, dzielnice: list[str]) -> DataFrame:
+def choose_df(df: DataFrame, dzielnice: list[str]):
     """
     Function choosing desired DataFrame.
     
@@ -49,18 +56,21 @@ def choose_df(df: DataFrame, dzielnice: list[str]) -> DataFrame:
     :type df: Dataframe
     :param dzielnice: chosen districts
     :type dzielnice: list[str]
-    :return: dataframe created according to chosen districts
+    Returns:
+        DataFrame: dataframe created according to chosen districts
     """
     new_df = df.loc[df["Dzielnica"].isin(dzielnice)]
     return new_df
 
-def choose_gj(gj: dict, dzielnice: list[str]) -> dict:
+def choose_gj(gj: dict, dzielnice: list[str]):
     """
     Function choosing desired Geojson.
     
     :param gj: initial Geojson file
+    :type gj: geojson
     :param dzielnice: chosen districts
-    :return: geojson created according to chosen districts
+    Returns:
+        dict: geojson created according to chosen districts
     """
 
     new_gj = {"type": "FeatureCollection",
@@ -75,7 +85,13 @@ def choose_gj(gj: dict, dzielnice: list[str]) -> dict:
     
     return new_gj
 
-def choose_mean_df(df: DataFrame|list[DataFrame]) -> (DataFrame,list[int]):
+def choose_mean_df(df: DataFrame | list[DataFrame]):
+    """Function calculating mean vaules of DataFrame parameters.
+
+    :param df: DataFrame instance 
+    Returns:
+        touple(list[DataFrame],list[int]): touple of chosen DataFrame and found mean values.
+    """
     res_graph = []
     res_data = []
     for df in df:
