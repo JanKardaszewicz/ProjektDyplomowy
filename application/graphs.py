@@ -1,7 +1,7 @@
 #Project Jan Kardaszewicz 
 
 #import libraries
-from data import *
+from data_prep import *
 import plotly.express as px
 
 
