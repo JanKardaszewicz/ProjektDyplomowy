@@ -1,7 +1,7 @@
-data module
-===========
+graphs module
+=============
 
-.. automodule:: data
+.. automodule:: graphs
    :members:
    :undoc-members:
    :show-inheritance:
