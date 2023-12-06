@@ -4,7 +4,7 @@ import pandas as pd
 # Assume that the code is saved in a file named "your_code.py"
 
 # Import the code for testing
-from data import choose_df, choose_gj, choose_mean_df
+from data_prep import choose_df, choose_gj, choose_mean_df
 
 class TestYourCode(unittest.TestCase):
     def test_choose_df(self):
@@ -48,7 +48,6 @@ class TestYourCode(unittest.TestCase):
         df2 = pd.DataFrame({"Dzielnica": ["Stare Miasto", "Grzegórzki", "Kazimierz"],
                             "średnia powierzchnia": [4, 5, 6]})
         result_df, result_data = choose_mean_df([df1, df2])
-        print(result_df[0])
         expected_df = [pd.DataFrame({"Wartość": ["średnia cena za m2"], "Aktualna średnia": [2.0]}),
                           pd.DataFrame({"Wartość": ["średnia powierzchnia"], "Aktualna średnia": [5.0]})]
         expected_data = [2.0, 5.0]
