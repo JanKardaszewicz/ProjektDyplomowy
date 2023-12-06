@@ -11,6 +11,7 @@ Welcome to Projekt Dyplomowy's documentation!
    :caption: Contents:
 
    modules
+   app
    data_prep
    graphs
    tests
