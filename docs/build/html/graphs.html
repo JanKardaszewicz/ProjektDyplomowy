@@ -21,8 +21,8 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="tests module" href="tests.html" />
-    <link rel="prev" title="data_prep module" href="data_prep.html" /> 
+    <link rel="next" title="data_prep module" href="data_prep.html" />
+    <link rel="prev" title="layouts module" href="layouts.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -48,7 +48,7 @@
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">application</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="app.html">app module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="data_prep.html">data_prep module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="layouts.html">layouts module</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">graphs module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#graphs.bar_area_graph"><code class="docutils literal notranslate"><span class="pre">bar_area_graph()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#graphs.bar_mean_graph"><code class="docutils literal notranslate"><span class="pre">bar_mean_graph()</span></code></a></li>
@@ -59,11 +59,11 @@
 <li class="toctree-l3"><a class="reference internal" href="#graphs.init_graph_udpate"><code class="docutils literal notranslate"><span class="pre">init_graph_udpate()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="tests.html">tests module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data_prep.html">data_prep module</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="app.html">app module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="data_prep.html">data_prep module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="layouts.html">layouts module</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">graphs module</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#graphs.bar_area_graph"><code class="docutils literal notranslate"><span class="pre">bar_area_graph()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#graphs.bar_mean_graph"><code class="docutils literal notranslate"><span class="pre">bar_mean_graph()</span></code></a></li>
@@ -74,7 +74,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#graphs.init_graph_udpate"><code class="docutils literal notranslate"><span class="pre">init_graph_udpate()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="tests.html">tests module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data_prep.html">data_prep module</a></li>
 </ul>
 
         </div>
@@ -107,64 +107,114 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="graphs.bar_area_graph">
 <span class="sig-prename descclassname"><span class="pre">graphs.</span></span><span class="sig-name descname"><span class="pre">bar_area_graph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">city_part</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#graphs.bar_area_graph" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Function displaying bar graph of mean area for district</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>DataFrame</em>) – DataFrame instance</p></li>
+<li><p><strong>city_part</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – chosen districts</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>plotly.express: Bar graph</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="graphs.bar_mean_graph">
-<span class="sig-prename descclassname"><span class="pre">graphs.</span></span><span class="sig-name descname"><span class="pre">bar_mean_graph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mean_df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">DataFrame</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mean_values</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">bar</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#graphs.bar_mean_graph" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<span class="sig-prename descclassname"><span class="pre">graphs.</span></span><span class="sig-name descname"><span class="pre">bar_mean_graph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mean_df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">DataFrame</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mean_values</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#graphs.bar_mean_graph" title="Link to this definition"></a></dt>
+<dd><p>Function displaying bar graph of combined mean price and area for every chosen district</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>list</em><em>[</em><em>DataFrame</em><em>]</em>) – DataFrame instances in list</p></li>
+<li><p><strong>city_part</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – chosen districts</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>list[plotly.express]: Bar graphs for combined mean price and area</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="graphs.bar_price_graph">
-<span class="sig-prename descclassname"><span class="pre">graphs.</span></span><span class="sig-name descname"><span class="pre">bar_price_graph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">city_part</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#graphs.bar_price_graph" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<span class="sig-prename descclassname"><span class="pre">graphs.</span></span><span class="sig-name descname"><span class="pre">bar_price_graph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">city_part</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#graphs.bar_price_graph" title="Link to this definition"></a></dt>
+<dd><p>Function displaying bar graph of mean price for district</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>DataFrame</em>) – DataFrame instance</p></li>
+<li><p><strong>city_part</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – chosen districts</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>plotly.express: Bar graph</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="graphs.choropleth_graph">
-<span class="sig-prename descclassname"><span class="pre">graphs.</span></span><span class="sig-name descname"><span class="pre">choropleth_graph</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">&lt;module</span> <span class="pre">'plotly.express'</span> <span class="pre">from</span> <span class="pre">'/home/jano/.local/lib/python3.10/site-packages/plotly/express/__init__.py'&gt;</span></span></span><a class="headerlink" href="#graphs.choropleth_graph" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<span class="sig-prename descclassname"><span class="pre">graphs.</span></span><span class="sig-name descname"><span class="pre">choropleth_graph</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#graphs.choropleth_graph" title="Link to this definition"></a></dt>
+<dd><p>Initial analysys layout graph</p>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>plotly.express: choropleth graph</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="graphs.city_part_graph">
-<span class="sig-prename descclassname"><span class="pre">graphs.</span></span><span class="sig-name descname"><span class="pre">city_part_graph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gj</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">&lt;module</span> <span class="pre">'plotly.express'</span> <span class="pre">from</span> <span class="pre">'/home/jano/.local/lib/python3.10/site-packages/plotly/express/__init__.py'&gt;</span></span></span><a class="headerlink" href="#graphs.city_part_graph" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">graphs.</span></span><span class="sig-name descname"><span class="pre">city_part_graph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gj</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#graphs.city_part_graph" title="Link to this definition"></a></dt>
 <dd><p>Function displaying chosen cityparts data.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>df</strong> – displayed DataFrame</p></li>
-<li><p><strong>gj</strong> – displayed Geojson</p></li>
+<li><p><strong>df</strong> (<em>DataFrame</em>) – displayed DataFrame</p></li>
+<li><p><strong>gj</strong> (<em>dict</em>) – displayed Geojson</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>created figure</p>
+</dl>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>plotly.express: created figure</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="graphs.init_graph">
-<span class="sig-prename descclassname"><span class="pre">graphs.</span></span><span class="sig-name descname"><span class="pre">init_graph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'Powierzchnia'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">&lt;module</span> <span class="pre">'plotly.express'</span> <span class="pre">from</span> <span class="pre">'/home/jano/.local/lib/python3.10/site-packages/plotly/express/__init__.py'&gt;</span></span></span><a class="headerlink" href="#graphs.init_graph" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">graphs.</span></span><span class="sig-name descname"><span class="pre">init_graph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'Powierzchnia'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#graphs.init_graph" title="Link to this definition"></a></dt>
 <dd><p>Initial graph figure creation for display layout.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>size</strong> (<em>string</em>) – determines what size of points on graph should be set by</p>
+<dd class="field-odd"><p><strong>size</strong> (<em>string</em><em>, </em><em>optional</em>) – determines what size of points on graph should be set by</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>initial figure</p>
+</dl>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>plotly.express: initial figure</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="graphs.init_graph_udpate">
-<span class="sig-prename descclassname"><span class="pre">graphs.</span></span><span class="sig-name descname"><span class="pre">init_graph_udpate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fig:</span> <span class="pre">&lt;module</span> <span class="pre">'plotly.express'</span> <span class="pre">from</span> <span class="pre">'/home/jano/.local/lib/python3.10/site-packages/plotly/express/__init__.py'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">on_administrative_layer:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#graphs.init_graph_udpate" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">graphs.</span></span><span class="sig-name descname"><span class="pre">init_graph_udpate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fig</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">on_administrative_layer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#graphs.init_graph_udpate" title="Link to this definition"></a></dt>
 <dd><p>Function to update initial layout figure layer.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>fig</strong> – initial figure</p></li>
-<li><p><strong>on_administrative_layer</strong> – determines if the administrative_layout is displayed or not</p></li>
+<li><p><strong>fig</strong> (<em>plotly.express</em>) – initial figure</p></li>
+<li><p><strong>on_administrative_layer</strong> (<em>bool</em><em>, </em><em>optional</em>) – determines if the administrative_layout is displayed or not</p></li>
 </ul>
+</dd>
+</dl>
+<dl class="simple">
+<dt>Retruns:</dt><dd><p>None: Update layout of existing figure globaly</p>
 </dd>
 </dl>
 </dd></dl>
@@ -175,8 +225,8 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="data_prep.html" class="btn btn-neutral float-left" title="data_prep module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="tests.html" class="btn btn-neutral float-right" title="tests module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="layouts.html" class="btn btn-neutral float-left" title="layouts module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="data_prep.html" class="btn btn-neutral float-right" title="data_prep module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

@@ -5,6 +5,6 @@ application
    :maxdepth: 4
 
    app
-   data_prep
+   layouts
    graphs
-   tests
+   data_prep

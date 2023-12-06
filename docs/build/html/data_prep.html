@@ -21,8 +21,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="graphs module" href="graphs.html" />
-    <link rel="prev" title="app module" href="app.html" /> 
+    <link rel="prev" title="graphs module" href="graphs.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -48,6 +47,8 @@
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">application</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="app.html">app module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="layouts.html">layouts module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="graphs.html">graphs module</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">data_prep module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#data_prep.choose_df"><code class="docutils literal notranslate"><span class="pre">choose_df()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#data_prep.choose_gj"><code class="docutils literal notranslate"><span class="pre">choose_gj()</span></code></a></li>
@@ -56,11 +57,11 @@
 <li class="toctree-l3"><a class="reference internal" href="#data_prep.read_file"><code class="docutils literal notranslate"><span class="pre">read_file()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="graphs.html">graphs module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tests.html">tests module</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="app.html">app module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="layouts.html">layouts module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="graphs.html">graphs module</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">data_prep module</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#data_prep.choose_df"><code class="docutils literal notranslate"><span class="pre">choose_df()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#data_prep.choose_gj"><code class="docutils literal notranslate"><span class="pre">choose_gj()</span></code></a></li>
@@ -69,8 +70,6 @@
 <li class="toctree-l2"><a class="reference internal" href="#data_prep.read_file"><code class="docutils literal notranslate"><span class="pre">read_file()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="graphs.html">graphs module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tests.html">tests module</a></li>
 </ul>
 
         </div>
@@ -102,7 +101,7 @@
 <span id="data-prep-module"></span><h1>data_prep module<a class="headerlink" href="#module-data_prep" title="Link to this heading"></a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="data_prep.choose_df">
-<span class="sig-prename descclassname"><span class="pre">data_prep.</span></span><span class="sig-name descname"><span class="pre">choose_df</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dzielnice</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="headerlink" href="#data_prep.choose_df" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">data_prep.</span></span><span class="sig-name descname"><span class="pre">choose_df</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dzielnice</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#data_prep.choose_df" title="Link to this definition"></a></dt>
 <dd><p>Function choosing desired DataFrame.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -111,33 +110,45 @@
 <li><p><strong>dzielnice</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – chosen districts</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>dataframe created according to chosen districts</p>
+</dl>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>DataFrame: dataframe created according to chosen districts</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="data_prep.choose_gj">
-<span class="sig-prename descclassname"><span class="pre">data_prep.</span></span><span class="sig-name descname"><span class="pre">choose_gj</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gj</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dzielnice</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#data_prep.choose_gj" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">data_prep.</span></span><span class="sig-name descname"><span class="pre">choose_gj</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gj</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dzielnice</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#data_prep.choose_gj" title="Link to this definition"></a></dt>
 <dd><p>Function choosing desired Geojson.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>gj</strong> – initial Geojson file</p></li>
+<li><p><strong>gj</strong> (<em>geojson</em>) – initial Geojson file</p></li>
 <li><p><strong>dzielnice</strong> – chosen districts</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>geojson created according to chosen districts</p>
+</dl>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>dict: geojson created according to chosen districts</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="data_prep.choose_mean_df">
-<span class="sig-prename descclassname"><span class="pre">data_prep.</span></span><span class="sig-name descname"><span class="pre">choose_mean_df</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">df:</span> <span class="pre">~pandas.core.frame.DataFrame</span> <span class="pre">|</span> <span class="pre">list[~pandas.core.frame.DataFrame])</span> <span class="pre">-&gt;</span> <span class="pre">(&lt;class</span> <span class="pre">'pandas.core.frame.DataFrame'&gt;,</span> <span class="pre">list[int]</span></em><span class="sig-paren">)</span><a class="headerlink" href="#data_prep.choose_mean_df" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<span class="sig-prename descclassname"><span class="pre">data_prep.</span></span><span class="sig-name descname"><span class="pre">choose_mean_df</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">DataFrame</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#data_prep.choose_mean_df" title="Link to this definition"></a></dt>
+<dd><p>Function calculating mean vaules of DataFrame parameters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>df</strong> – DataFrame instance</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>touple(list[DataFrame],list[int]): touple of chosen DataFrame and found mean values.</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py data">
 <dt class="sig sig-object py" id="data_prep.districts">
@@ -147,8 +158,18 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="data_prep.read_file">
-<span class="sig-prename descclassname"><span class="pre">data_prep.</span></span><span class="sig-name descname"><span class="pre">read_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#data_prep.read_file" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<span class="sig-prename descclassname"><span class="pre">data_prep.</span></span><span class="sig-name descname"><span class="pre">read_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#data_prep.read_file" title="Link to this definition"></a></dt>
+<dd><p>Function to read files from data directory in Workspace</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>file_name</strong> (<em>str</em>) – name of file to read</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>str: full file path</p>
+</dd>
+</dl>
+</dd></dl>
 
 </section>
 
@@ -156,8 +177,7 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="app.html" class="btn btn-neutral float-left" title="app module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="graphs.html" class="btn btn-neutral float-right" title="graphs module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="graphs.html" class="btn btn-neutral float-left" title="graphs module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>

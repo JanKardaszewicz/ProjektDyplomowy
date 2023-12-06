@@ -1,7 +1,7 @@
-tests module
-============
+layouts module
+==============
 
-.. automodule:: tests
+.. automodule:: layouts
    :members:
    :undoc-members:
    :show-inheritance:

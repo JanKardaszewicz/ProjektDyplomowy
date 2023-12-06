@@ -22,6 +22,7 @@ def read_file(file_name: str):
 
     :param file_name: name of file to read
     :type file_name: str
+    
     Returns:
         str: full file path
     """
@@ -56,6 +57,7 @@ def choose_df(df: DataFrame, dzielnice: list[str]):
     :type df: Dataframe
     :param dzielnice: chosen districts
     :type dzielnice: list[str]
+
     Returns:
         DataFrame: dataframe created according to chosen districts
     """
@@ -69,6 +71,7 @@ def choose_gj(gj: dict, dzielnice: list[str]):
     :param gj: initial Geojson file
     :type gj: geojson
     :param dzielnice: chosen districts
+
     Returns:
         dict: geojson created according to chosen districts
     """
@@ -89,6 +92,7 @@ def choose_mean_df(df: DataFrame | list[DataFrame]):
     """Function calculating mean vaules of DataFrame parameters.
 
     :param df: DataFrame instance 
+
     Returns:
         touple(list[DataFrame],list[int]): touple of chosen DataFrame and found mean values.
     """

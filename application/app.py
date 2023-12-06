@@ -34,6 +34,7 @@ def display(display_type: str):
 
     :param display_type: determines what type of layout should be displayed
     :type display_type: str
+
     Returns:
         dash.html: updated layout
     """
@@ -59,6 +60,7 @@ def update_output(on_administrative_layer: bool, size_switch_value: bool):
     :type on_administrative_layer: bool
     :param size_switch_value: determines if size of points is set by Price or Area
     :type size_switch_value: bool
+
     Returns:
         dash.dcc: updated graph 
     """
@@ -83,6 +85,7 @@ def display_text(value: bool):
 
     :param value: value of switch
     :type value: bool
+
     Returns:
         str:  text text if the size of points is determined by Price or Area
     """
@@ -104,6 +107,7 @@ def display_text2(value: bool):
 
     :param value: value of switch
     :type value: bool
+
     Returns:
         str: text if the administrative_layout is displayed or not
     """
@@ -129,6 +133,7 @@ def sync_checklists(districts_selected: list[str], all_selected: list[str]):
     :type districts_selected: list[str]
     :param all_selected: button sellecting all parts of Krakow if all parts are selected this button is selected automaticly.
     :type all_selected: list[str]
+
     Returns:
         Touple[list[str], list[str]: checked values of both checklists 
     """
@@ -160,6 +165,7 @@ def change_displayed_city_part(city_part: list[str], check_all: list[str]):
     :type city_part: list[str]
     :param check_all: button sellecting all parts of Krakow if all parts are selected this button is selected automaticly.
     :type check_all: list[str]
+    
     Returns:
         List[dash.dcc, plotly.express, plotly.express, plotly.express, plotly.express]: figures set accordingly to checklists checked values
     """

@@ -21,7 +21,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="data_prep module" href="data_prep.html" />
+    <link rel="next" title="layouts module" href="layouts.html" />
     <link rel="prev" title="application" href="modules.html" /> 
 </head>
 
@@ -49,30 +49,30 @@
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">application</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">app module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#app.change_displayed_city_part"><code class="docutils literal notranslate"><span class="pre">change_displayed_city_part()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#app.display_layout"><code class="docutils literal notranslate"><span class="pre">display_layout()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#app.display"><code class="docutils literal notranslate"><span class="pre">display()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#app.display_text"><code class="docutils literal notranslate"><span class="pre">display_text()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#app.display_text2"><code class="docutils literal notranslate"><span class="pre">display_text2()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#app.sync_checklists"><code class="docutils literal notranslate"><span class="pre">sync_checklists()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#app.update_output"><code class="docutils literal notranslate"><span class="pre">update_output()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="data_prep.html">data_prep module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="layouts.html">layouts module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="graphs.html">graphs module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tests.html">tests module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data_prep.html">data_prep module</a></li>
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">app module</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#app.change_displayed_city_part"><code class="docutils literal notranslate"><span class="pre">change_displayed_city_part()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="#app.display_layout"><code class="docutils literal notranslate"><span class="pre">display_layout()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#app.display"><code class="docutils literal notranslate"><span class="pre">display()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#app.display_text"><code class="docutils literal notranslate"><span class="pre">display_text()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#app.display_text2"><code class="docutils literal notranslate"><span class="pre">display_text2()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#app.sync_checklists"><code class="docutils literal notranslate"><span class="pre">sync_checklists()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#app.update_output"><code class="docutils literal notranslate"><span class="pre">update_output()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="data_prep.html">data_prep module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="layouts.html">layouts module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="graphs.html">graphs module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tests.html">tests module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data_prep.html">data_prep module</a></li>
 </ul>
 
         </div>
@@ -104,93 +104,99 @@
 <span id="app-module"></span><h1>app module<a class="headerlink" href="#module-app" title="Link to this heading"></a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="app.change_displayed_city_part">
-<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">change_displayed_city_part</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">city_part</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">check_all</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">&lt;module</span> <span class="pre">'dash.dcc'</span> <span class="pre">from</span> <span class="pre">'/home/jano/.local/lib/python3.10/site-packages/dash/dcc/__init__.py'&gt;</span></span></span><a class="headerlink" href="#app.change_displayed_city_part" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">change_displayed_city_part</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">city_part</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">check_all</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.change_displayed_city_part" title="Link to this definition"></a></dt>
 <dd><p>Callback function to sync checklists with the graphs.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>city_part</strong> – all parts of Kraków selected in checklist</p></li>
-<li><p><strong>check_all</strong> – button sellecting all parts of Krakow if all parts are selected this button is selected automaticly.</p></li>
+<li><p><strong>city_part</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – all parts of Kraków selected in checklist</p></li>
+<li><p><strong>check_all</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – button sellecting all parts of Krakow if all parts are selected this button is selected automaticly.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>figures set accordingly to checklists checked values</p>
+</dl>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>List[dash.dcc, plotly.express, plotly.express, plotly.express, plotly.express]: figures set accordingly to checklists checked values</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="app.display_layout">
-<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">display_layout</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">display_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">&lt;module</span> <span class="pre">'dash.html'</span> <span class="pre">from</span> <span class="pre">'/home/jano/.local/lib/python3.10/site-packages/dash/html/__init__.py'&gt;</span></span></span><a class="headerlink" href="#app.display_layout" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="app.display">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">display</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">display_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.display" title="Link to this definition"></a></dt>
 <dd><p>Callback function changing displayed layout according to dropdown values.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>display_type</strong> – determines what type of layout should be displayed</p>
+<dd class="field-odd"><p><strong>display_type</strong> (<em>str</em>) – determines what type of layout should be displayed</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>updated layout</p>
+</dl>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>dash.html: updated layout</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="app.display_text">
-<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">display_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#app.display_text" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">display_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.display_text" title="Link to this definition"></a></dt>
 <dd><p>Callback function displaying text according to switch value.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>value</strong> – value of switch</p>
+<dd class="field-odd"><p><strong>value</strong> (<em>bool</em>) – value of switch</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>text text if the size of points is determined by Price or Area</p>
+</dl>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>str:  text text if the size of points is determined by Price or Area</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="app.display_text2">
-<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">display_text2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#app.display_text2" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">display_text2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.display_text2" title="Link to this definition"></a></dt>
 <dd><p>Callback function displaying text according to switch value.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>value</strong> – value of switch</p>
+<dd class="field-odd"><p><strong>value</strong> (<em>bool</em>) – value of switch</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>text if the administrative_layout is displayed or not</p>
+</dl>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>str: text if the administrative_layout is displayed or not</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="app.sync_checklists">
-<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">sync_checklists</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">districts_selected</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">all_selected</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#app.sync_checklists" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">sync_checklists</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">districts_selected</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">all_selected</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.sync_checklists" title="Link to this definition"></a></dt>
 <dd><p>Callback function to sync ‘Wszystkie’ button in checklists with all the others.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>districts_selected</strong> – all parts of Kraków selected in checklist</p></li>
-<li><p><strong>all_selected</strong> – button sellecting all parts of Krakow if all parts are selected this button is selected automaticly.</p></li>
+<li><p><strong>districts_selected</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – all parts of Kraków selected in checklist</p></li>
+<li><p><strong>all_selected</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – button sellecting all parts of Krakow if all parts are selected this button is selected automaticly.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>checked values of checklists</p>
+</dl>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>Touple[list[str], list[str]: checked values of both checklists</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="app.update_output">
-<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">update_output</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">on_administrative_layer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size_switch_value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">&lt;module</span> <span class="pre">'dash.dcc'</span> <span class="pre">from</span> <span class="pre">'/home/jano/.local/lib/python3.10/site-packages/dash/dcc/__init__.py'&gt;</span></span></span><a class="headerlink" href="#app.update_output" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">update_output</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">on_administrative_layer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size_switch_value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.update_output" title="Link to this definition"></a></dt>
 <dd><p>Callback function changing graph according to switches values.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>on_administrative_layer</strong> – determines if administrative_layer is on or off</p></li>
-<li><p><strong>size_switch_value</strong> – determines if size of points is set by Price or Area</p></li>
+<li><p><strong>on_administrative_layer</strong> (<em>bool</em>) – determines if administrative_layer is on or off</p></li>
+<li><p><strong>size_switch_value</strong> (<em>bool</em>) – determines if size of points is set by Price or Area</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>updated graph</p>
+</dl>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>dash.dcc: updated graph</p>
 </dd>
 </dl>
 </dd></dl>
@@ -202,7 +208,7 @@
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="modules.html" class="btn btn-neutral float-left" title="application" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="data_prep.html" class="btn btn-neutral float-right" title="data_prep module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="layouts.html" class="btn btn-neutral float-right" title="layouts module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

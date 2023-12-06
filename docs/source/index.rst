@@ -12,9 +12,9 @@ Welcome to Projekt Dyplomowy's documentation!
 
    modules
    app
-   data_prep
+   layouts
    graphs
-   tests
+   data_prep
 
 Indices and tables
 ==================

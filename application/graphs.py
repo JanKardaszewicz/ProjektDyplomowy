@@ -13,6 +13,7 @@ def init_graph(size: str = "Powierzchnia"):
     
     :param size: determines what size of points on graph should be set by
     :type size: string, optional
+
     Returns:
         plotly.express: initial figure
     """
@@ -30,6 +31,7 @@ def init_graph_udpate(fig, on_administrative_layer: bool = False):
     :type fig: plotly.express
     :param on_administrative_layer: determines if the administrative_layout is displayed or not
     :type on_administrative_layer: bool, optional
+    
     Retruns:
         None: Update layout of existing figure globaly
     """
@@ -69,6 +71,7 @@ def city_part_graph(df: DataFrame, gj: dict):
     :type df: DataFrame
     :param gj: displayed Geojson
     :type gj: dict
+
     Returns:
         plotly.express: created figure
     """
@@ -98,6 +101,7 @@ def bar_price_graph(df: DataFrame, city_part: list[str]):
     :type df: DataFrame
     :param city_part: chosen districts
     :type city_part: list[str]
+
     Returns:
         plotly.express: Bar graph
     """
@@ -116,6 +120,7 @@ def bar_area_graph(df, city_part):
     :type df: DataFrame
     :param city_part: chosen districts
     :type city_part: list[str]
+
     Returns:
         plotly.express: Bar graph
     """
@@ -135,6 +140,7 @@ def bar_mean_graph(mean_df : list[DataFrame], mean_values: list[int]):
     :type df: list[DataFrame]
     :param city_part: chosen districts
     :type city_part: list[str]
+
     Returns:
         list[plotly.express]: Bar graphs for combined mean price and area 
     """
