@@ -9,13 +9,6 @@ from pandas import DataFrame
 import os 
 """DATA PREPARATION"""
 
-"""Constants"""
-CRACOW_CENTER = {"lat": 50.049683, "lon": 19.984544}
-MAPBOX_STYLE = "carto-positron"
-ZOOM = 10
-districts = ["Stare Miasto","Grzegórzki", "Prądnik Czerwony", "Prądnik Biały", "Krowodrza", "Bronowice", "Zwierzyniec", "Dębniki", "Łagiewniki-Borek Fałęcki",
-             "Swoszowice", "Podgórze Duchackie", "Bieżanów-Prokocim", "Podgórze", "Czyżyny", "Mistrzejowice", "Bieńczyce", "Wzgórza Krzesławickie", "Nowa Huta"]
-
 """Getting geo data from files"""
 def read_file(file_name: str):
     """Function to read files from data directory in Workspace
@@ -34,11 +27,24 @@ def read_file(file_name: str):
     return file_path
 
 #TODO Automat do pozyskania wiekszej liczby danych lub jakos pozyskac duzo danych nwm jak jeszcze :(
-df = pd.read_csv(read_file("mieszkania.csv") , sep=";")
+MAIN_DF = pd.read_csv(read_file("mieszkania.csv") , sep=";")
 with open(read_file("Dzielnice_administracyjne2.geojson"),encoding="utf8") as f:
-    gj = json.load(f)
+    MAIN_GJ = json.load(f)
 
 #TODO Narazie uzywam gotowych plikow utworzonych losowo - wyliaczanie srednich dopiero po uzyskaniu wiekszej liczby dancyh
+
+"""Constants"""
+CRACOW_CENTER = {"lat": 50.049683, "lon": 19.984544}
+MAPBOX_STYLE = "carto-positron"
+ZOOM = 10
+districts = ["Stare Miasto","Grzegórzki", "Prądnik Czerwony", "Prądnik Biały", "Krowodrza", "Bronowice", "Zwierzyniec", "Dębniki", "Łagiewniki-Borek Fałęcki",
+             "Swoszowice", "Podgórze Duchackie", "Bieżanów-Prokocim", "Podgórze", "Czyżyny", "Mistrzejowice", "Bieńczyce", "Wzgórza Krzesławickie", "Nowa Huta"]
+
+MIN_PRICE_VALUE = int(MAIN_DF['Cena'].min())
+MAX_PRICE_VALUE = int(MAIN_DF['Cena'].max())+1
+
+MIN_AREA_VALUE = int(MAIN_DF['Powierzchnia'].min())
+MAX_AREA_VALUE = int(MAIN_DF['Powierzchnia'].max()) + 1 
 
 """Calculating the analysys data"""
 
@@ -89,7 +95,8 @@ def choose_gj(gj: dict, dzielnice: list[str]):
     return new_gj
 
 def choose_mean_df(df: DataFrame | list[DataFrame]):
-    """Function calculating mean vaules of DataFrame parameters.
+    """
+    Function calculating mean vaules of DataFrame parameters.
 
     :param df: DataFrame instance 
 
@@ -103,3 +110,20 @@ def choose_mean_df(df: DataFrame | list[DataFrame]):
         res_data.append(df.iloc[:, 1].mean())
         res_graph.append(pd.DataFrame(ret_dict))
     return res_graph, res_data
+
+def set_df_price_and_area_range(df: DataFrame, price_range: list[float], area_range: list[float]):
+    """Funciton choosing dispaly DataFrame according to sliders values.
+
+        :param df: displayed DataFrame instance
+        :type df: DataFrame
+        :param price_range: price range-slider values
+        :type price_range: list[float]
+        :param area_range: area range-slider values
+        :type area_range: list[float]
+        
+        Returns:
+            DataFrame: chosen Datafreme with Price and Area values in sliders range.
+    """
+    df_range = df[(df['Cena'] >= price_range[0]) & (df['Cena'] <= price_range[1]) & (df['Powierzchnia'] >= area_range[0]) & (df['Powierzchnia'] <= area_range[1])]
+    
+    return df_range

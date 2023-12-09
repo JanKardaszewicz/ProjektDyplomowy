@@ -50,9 +50,11 @@ def display(display_type: str):
     Output("initial_layout", "children"),
     Input("administrative_layout_switch", "value"),
     Input("points_size_switch", "value"),
+    Input("price-range-slider", "value"),
+    Input("area-range-slider", "value")
 )
 
-def update_output(on_administrative_layer: bool, size_switch_value: bool):
+def update_output(on_administrative_layer: bool, size_switch_value: bool, price_range: list[float], area_range: list[float]):
     """
     Callback function changing graph according to switches values.
 
@@ -64,10 +66,12 @@ def update_output(on_administrative_layer: bool, size_switch_value: bool):
     Returns:
         dash.dcc: updated graph 
     """
+    df = set_df_price_and_area_range(MAIN_DF, price_range, area_range)
+    
     if size_switch_value:
-        fig = init_graph(size="Cena")
+        fig = init_graph(df, size="Cena")
     else:
-        fig = init_graph(size="Powierzchnia")
+        fig = init_graph(df, size="Powierzchnia")
         
     init_graph_udpate(fig, on_administrative_layer)
 
@@ -115,7 +119,6 @@ def display_text2(value: bool):
         return "On"
     else:
         return "Off"
-
 
 """ANALYSYS CALLBACK"""
 
@@ -180,8 +183,8 @@ def change_displayed_city_part(city_part: list[str], check_all: list[str]):
         return [dcc.Graph(figure=analysys_fig), bar_avg_price, bar_avg_area, mean_figs[0], mean_figs[1]]
     
     else:
-        new_df = choose_df(df, city_part)
-        new_gj = choose_gj(gj, city_part)
+        new_df = choose_df(MAIN_DF, city_part)
+        new_gj = choose_gj(MAIN_GJ, city_part)
         new_mean_price_df = choose_df(mean_price_df, city_part)
         new_mean_area_df = choose_df(mean_area_df,city_part)
         mean_df, mean_values = choose_mean_df([new_mean_price_df,new_mean_area_df])
