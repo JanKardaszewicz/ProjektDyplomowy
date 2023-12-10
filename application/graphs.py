@@ -51,7 +51,7 @@ def init_graph_udpate(fig, on_administrative_layer: bool = False):
     })
 
 def choropleth_graph():
-    """Initial analysys layout graph
+    """Initial analysis layout graph
 
     Returns:
         plotly.express: choropleth graph
@@ -155,4 +155,4 @@ def bar_mean_graph(mean_df : list[DataFrame], mean_values: list[int]):
 
 display_fig = init_graph(MAIN_DF)
 init_graph_udpate(display_fig)
-analysys_fig = choropleth_graph()
+analysis_fig = choropleth_graph()

@@ -58,13 +58,13 @@ def initial_layout():
         ],style={"font-weight": "bold"}),      
     ])
 
-"""Analysys layout template"""
-def analysys_layout():
+"""analysis layout template"""
+def analysis_layout():
     """
-    Function organising analysys display layout for application
+    Function organising analysis display layout for application
     
     Returns:
-        html.Div: analysys layout
+        html.Div: analysis layout
     """
     return html.Div([
         html.Div([
@@ -84,8 +84,8 @@ def analysys_layout():
         ]),
         html.Div([
             dcc.Graph(
-            figure = analysys_fig
-            )], id="analysys_layout", style={"display": "inline-block",  "margin-top": "10px"}
+            figure = analysis_fig
+            )], id="analysis_layout", style={"display": "inline-block",  "margin-top": "10px"}
         ),
         html.Div([
             dcc.Graph(

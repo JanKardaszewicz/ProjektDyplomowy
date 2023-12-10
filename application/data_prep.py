@@ -46,7 +46,7 @@ MAX_PRICE_VALUE = int(MAIN_DF['Cena'].max())+1
 MIN_AREA_VALUE = int(MAIN_DF['Powierzchnia'].min())
 MAX_AREA_VALUE = int(MAIN_DF['Powierzchnia'].max()) + 1 
 
-"""Calculating the analysys data"""
+"""Calculating the analysis data"""
 
 mean_price_df = pd.read_csv(read_file("mieszkania_srednia.csv"))
 mean_price_df["srednia_cena_za_m2"] = pd.to_numeric(mean_price_df["srednia_cena_za_m2"])

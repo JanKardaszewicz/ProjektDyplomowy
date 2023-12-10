@@ -11,7 +11,7 @@ app = Dash(__name__, suppress_callback_exceptions=True)
 app.layout = html.Div([
     html.Div([
         html.Label(["Rodzaj wyświetlania:"], style={"font-weight": "bold", "text-align": "center"}),
-        dcc.Dropdown(["Display", "Analysys"], "Display", id="display-dropdown"),    
+        dcc.Dropdown(["Wizualizacja", "Analiza"], "Wizualizacja", id="display-dropdown"),    
     ]),
     html.Div(id="current-layout"),
 ])
@@ -38,10 +38,10 @@ def display(display_type: str):
     Returns:
         dash.html: updated layout
     """
-    if display_type == "Display":
+    if display_type == "Wizualizacja":
         return initial_layout()
-    if display_type == "Analysys":
-        return  analysys_layout()
+    if display_type == "Analiza":
+        return  analysis_layout()
 
 
 """DISPLAY CALLBACK"""
@@ -120,7 +120,7 @@ def display_text2(value: bool):
     else:
         return "Off"
 
-"""ANALYSYS CALLBACK"""
+"""analysis CALLBACK"""
 
 @app.callback(
     Output("districts-checklist", "value"),
@@ -151,7 +151,7 @@ def sync_checklists(districts_selected: list[str], all_selected: list[str]):
 
 
 @app.callback(
-    Output("analysys_layout", "children"),
+    Output("analysis_layout", "children"),
     Output("bar_avg_price_for_m2", "figure"),
     Output("bar_avg_area", "figure"),
     Output("bar_mean_price", "figure"),
@@ -173,14 +173,14 @@ def change_displayed_city_part(city_part: list[str], check_all: list[str]):
         List[dash.dcc, plotly.express, plotly.express, plotly.express, plotly.express]: figures set accordingly to checklists checked values
     """
 
-    analysys_fig = choropleth_graph()
+    analysis_fig = choropleth_graph()
     bar_avg_price = bar_price_graph(mean_price_df, city_part)
     bar_avg_area = bar_area_graph(mean_area_df, city_part)
     mean_df, mean_values = choose_mean_df([mean_price_df,mean_area_df])
     mean_figs = bar_mean_graph(mean_df, mean_values)
 
     if check_all:
-        return [dcc.Graph(figure=analysys_fig), bar_avg_price, bar_avg_area, mean_figs[0], mean_figs[1]]
+        return [dcc.Graph(figure=analysis_fig), bar_avg_price, bar_avg_area, mean_figs[0], mean_figs[1]]
     
     else:
         new_df = choose_df(MAIN_DF, city_part)
@@ -189,11 +189,11 @@ def change_displayed_city_part(city_part: list[str], check_all: list[str]):
         new_mean_area_df = choose_df(mean_area_df,city_part)
         mean_df, mean_values = choose_mean_df([new_mean_price_df,new_mean_area_df])
 
-        analysys_fig = city_part_graph(df= new_df, gj= new_gj)
+        analysis_fig = city_part_graph(df= new_df, gj= new_gj)
         mean_figs = bar_mean_graph(mean_df, mean_values)
 
 
-    return [dcc.Graph(figure=analysys_fig), bar_avg_price, bar_avg_area, mean_figs[0], mean_figs[1]]
+    return [dcc.Graph(figure=analysis_fig), bar_avg_price, bar_avg_area, mean_figs[0], mean_figs[1]]
 
 
 if __name__ == "__main__":
