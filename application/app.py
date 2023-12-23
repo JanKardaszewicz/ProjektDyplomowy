@@ -174,9 +174,9 @@ def change_displayed_city_part(city_part: list[str], check_all: list[str]):
     """
 
     analysis_fig = choropleth_graph()
-    bar_avg_price = bar_price_graph(mean_price_df, city_part)
+    bar_avg_price = bar_price_graph(mean_price_df_m2, city_part)
     bar_avg_area = bar_area_graph(mean_area_df, city_part)
-    mean_df, mean_values = choose_mean_df([mean_price_df,mean_area_df])
+    mean_df, mean_values = choose_mean_df([mean_price_df_m2,mean_area_df])
     mean_figs = bar_mean_graph(mean_df, mean_values)
 
     if check_all:
@@ -185,9 +185,9 @@ def change_displayed_city_part(city_part: list[str], check_all: list[str]):
     else:
         new_df = choose_df(MAIN_DF, city_part)
         new_gj = choose_gj(MAIN_GJ, city_part)
-        new_mean_price_df = choose_df(mean_price_df, city_part)
+        new_mean_price_df_m2 = choose_df(mean_price_df_m2, city_part)
         new_mean_area_df = choose_df(mean_area_df,city_part)
-        mean_df, mean_values = choose_mean_df([new_mean_price_df,new_mean_area_df])
+        mean_df, mean_values = choose_mean_df([new_mean_price_df_m2,new_mean_area_df])
 
         analysis_fig = city_part_graph(df= new_df, gj= new_gj)
         mean_figs = bar_mean_graph(mean_df, mean_values)

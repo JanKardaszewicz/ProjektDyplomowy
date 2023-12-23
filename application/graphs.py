@@ -57,7 +57,7 @@ def choropleth_graph():
         plotly.express: choropleth graph
     """
 
-    fig = px.choropleth_mapbox(mean_price_df, geojson=MAIN_GJ, color="srednia_cena_za_m2",
+    fig = px.choropleth_mapbox(mean_price_df, geojson=MAIN_GJ, color="srednia_cena",
                            locations="Dzielnica",featureidkey="properties.nazwa",
                            mapbox_style=MAPBOX_STYLE, zoom=ZOOM,center = CRACOW_CENTER, labels={"name": "Dzielnica"}, width=925, height=450)
     fig.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
@@ -145,10 +145,10 @@ def bar_mean_graph(mean_df : list[DataFrame], mean_values: list[int]):
         list[plotly.express]: Bar graphs for  combined mean price and area 
     """
     fig = px.bar(mean_df[0], x="Wartość", y= "Aktualna średnia", title=f"Średnia cena: {mean_values[0]:.2f} [zł/m²]", height=400,width=300)
-    fig.update_yaxes(range=[0, 15000])
+    fig.update_yaxes(range=[8000, 25000])
     fig2 = px.bar(mean_df[1], x="Wartość", y= "Aktualna średnia",color="Wartość", color_discrete_map={'Wartość': 'red'},title=f"Średnia powierzchnia: {mean_values[1]:.2f} [m²]" , height=400,width=300)
     fig2.update_layout(showlegend=False)
-    fig2.update_yaxes(range=[0, 150])
+    fig2.update_yaxes(range=[50, 100])
     return [fig, fig2]
 
 """Creating initial figures"""

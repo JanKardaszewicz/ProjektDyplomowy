@@ -46,7 +46,7 @@ def initial_layout():
             html.Div(
                 [html.Div([html.Label("Price range:"),
                     dcc.RangeSlider(id='price-range-slider',
-                                    min=MIN_PRICE_VALUE, max=MAX_PRICE_VALUE, value=[MIN_PRICE_VALUE,MAX_PRICE_VALUE], marks=None,
+                                    min=MIN_PRICE_VALUE, max=MAX_PRICE_VALUE, value=[MIN_PRICE_VALUE,MAX_PRICE_VALUE], marks=None, step = 1000,
                         tooltip={"placement": "bottom", "always_visible": True})],
                     style={"display": "inline-block", 'width': '600px', "verticalAlign": "bottom", "margin-left": "50px", "margin-right": "50px"},
                 ),
