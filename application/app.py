@@ -1,10 +1,9 @@
 #Project Jan Kardaszewicz 
-
 from layouts import *
 from dash import Dash, Input, Output, callback_context
 
 """START APP"""
-
+Data = Data_Prep()
 """app with common elements for all layouts"""
 
 app = Dash(__name__, suppress_callback_exceptions=True)
@@ -15,7 +14,6 @@ app.layout = html.Div([
     ]),
     html.Div(id="current-layout"),
 ])
-
 
 """APP CALLBACKS"""
 
@@ -39,9 +37,9 @@ def display(display_type: str):
         dash.html: updated layout
     """
     if display_type == "Wizualizacja":
-        return initial_layout()
+        return Display_Layout(price_range=[Data.return_MIN_PRICE_VALUE(), Data.return_MAX_PRICE_VALUE()], area_range = [Data.return_MIN_AREA_VALUE(), Data.return_MAX_AREA_VALUE( )]).return_layout()
     if display_type == "Analiza":
-        return  analysis_layout()
+        return Analysis_Layout(city_part=[]).return_layout()
 
 
 """DISPLAY CALLBACK"""
@@ -66,14 +64,11 @@ def update_output(on_administrative_layer: bool, size_switch_value: bool, price_
     Returns:
         dash.dcc: updated graph 
     """
-    df = set_df_price_and_area_range(MAIN_DF, price_range, area_range)
-    
+    df = Display_Graph(price_range=price_range, area_range=area_range)
     if size_switch_value:
-        fig = init_graph(df, size="Cena")
+        fig = df.initial_display(size="Cena", on_administrative_layer=on_administrative_layer)
     else:
-        fig = init_graph(df, size="Powierzchnia")
-        
-    init_graph_udpate(fig, on_administrative_layer)
+        fig = df.initial_display(size="Powierzchnia", on_administrative_layer=on_administrative_layer)
 
     return [dcc.Graph(figure=fig)]
 
@@ -144,9 +139,9 @@ def sync_checklists(districts_selected: list[str], all_selected: list[str]):
     ctx = callback_context
     input_id = ctx.triggered[0]["prop_id"].split(".")[0]
     if input_id == "districts-checklist":
-        all_selected = ["Wszystkie"] if set(districts_selected) == set(districts) else []
+        all_selected = ["Wszystkie"] if set(districts_selected) == set(Data.return_districts()) else []
     else:
-        districts_selected = districts if all_selected else []
+        districts_selected = Data.return_districts() if all_selected else []
     return districts_selected, all_selected
 
 
@@ -172,28 +167,16 @@ def change_displayed_city_part(city_part: list[str], check_all: list[str]):
     Returns:
         List[dash.dcc, plotly.express, plotly.express, plotly.express, plotly.express]: figures set accordingly to checklists checked values
     """
-
-    analysis_fig = choropleth_graph()
-    bar_avg_price = bar_price_graph(mean_price_df_m2, city_part)
-    bar_avg_area = bar_area_graph(mean_area_df, city_part)
-    mean_df, mean_values = choose_mean_df([mean_price_df_m2,mean_area_df])
-    mean_figs = bar_mean_graph(mean_df, mean_values)
+    obj = Analysis_Graph(city_part)
 
     if check_all:
-        return [dcc.Graph(figure=analysis_fig), bar_avg_price, bar_avg_area, mean_figs[0], mean_figs[1]]
+        return [dcc.Graph(figure=obj.choropleth_graph()), obj.bar_price_graph(), obj.bar_area_graph(), obj.bar_mean_graph_area(), obj.bar_mean_graph_price()]
     
-    else:
-        new_df = choose_df(MAIN_DF, city_part)
-        new_gj = choose_gj(MAIN_GJ, city_part)
-        new_mean_price_df_m2 = choose_df(mean_price_df_m2, city_part)
-        new_mean_area_df = choose_df(mean_area_df,city_part)
-        mean_df, mean_values = choose_mean_df([new_mean_price_df_m2,new_mean_area_df])
+    else:    
+        return [dcc.Graph(figure=obj.city_part_graph()), obj.bar_price_graph(), obj.bar_area_graph(), obj.bar_mean_graph_area(),  obj.bar_mean_graph_price()]
+        
 
-        analysis_fig = city_part_graph(df= new_df, gj= new_gj)
-        mean_figs = bar_mean_graph(mean_df, mean_values)
-
-
-    return [dcc.Graph(figure=analysis_fig), bar_avg_price, bar_avg_area, mean_figs[0], mean_figs[1]]
+    
 
 
 if __name__ == "__main__":

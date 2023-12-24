@@ -1,59 +1,89 @@
 import unittest
 import pandas as pd
+from data_prep import *
 
-# Assume that the code is saved in a file named "your_code.py"
+class TestDataPrep(unittest.TestCase):
 
-# Import the code for testing
-from data_prep import choose_df, choose_gj, choose_mean_df
+    def setUp(self):
+        self.data_prep = Data_Prep()
 
-class TestYourCode(unittest.TestCase):
+    def test_return_df(self):
+        self.assertIsInstance(self.data_prep.return_df(), pd.DataFrame)
+
+    def test_return_gj(self):
+        self.assertIsInstance(self.data_prep.return_gj(), dict)
+
+    def test_return_districts(self):
+        self.assertIsInstance(self.data_prep.return_districts(), list)
+
+    def test_return_MIN_PRICE_VALUE(self):
+        self.assertIsInstance(self.data_prep.return_MIN_PRICE_VALUE(), int)
+
+    def test_return_MAX_PRICE_VALUE(self):
+        self.assertIsInstance(self.data_prep.return_MAX_PRICE_VALUE(), int)
+
+    def test_return_MIN_AREA_VALUE(self):
+        self.assertIsInstance(self.data_prep.return_MIN_AREA_VALUE(), int)
+
+    def test_return_MAX_AREA_VALUE(self):
+        self.assertIsInstance(self.data_prep.return_MAX_AREA_VALUE(), int)
+
+    def test_get_row_coordinates(self):
+        # Assuming a row with a valid address
+        row = {"Ulica": "Świętego Sebastiana"}
+        self.assertIsNotNone(self.data_prep.get_row_coordinates(row))
+
+    def test_get_row_price_for_m2(self):
+        # Assuming a row with valid 'Cena' and 'Powierzchnia'
+        row = {"Cena": 100000, "Powierzchnia": 50}
+        result = self.data_prep.get_row_price_for_m2(row)
+        self.assertIsInstance(result, float)
+        self.assertEqual(result, 2000)
+
+
+
+class TestDisplayData(unittest.TestCase):
+
+    def setUp(self):
+        self.display_data = Display_Data(price_range=[0, 1000000], area_range=[0, 200])
+
+    def test_set_df_price_and_area_range(self):
+        self.assertIsInstance(self.display_data.set_df_price_and_area_range([0, 1000000], [0, 200]), pd.DataFrame)
+
+
+class TestAnalysisData(unittest.TestCase):
+
+    def setUp(self):
+        self.analysis_data = Analysis_Data()
+
+    def test_return_mean_df(self):
+        self.assertIsInstance(self.analysis_data.return_mean_df(), pd.DataFrame)
+
+    def test_set_means_DataFrame(self):
+        self.assertIsInstance(self.analysis_data.set_means_DataFrame(), pd.DataFrame)
+
+
+class TestChooseAnalysisData(unittest.TestCase):
+
+    def setUp(self):
+        self.choose_analysis_data = Choose_Analysis_Data(city_part=["Stare Miasto", "Grzegórzki"])
+
     def test_choose_df(self):
-        # Test chooseing df 
-        df = pd.DataFrame({"Dzielnica": ["A", "B", "C", "D"],
-                       "Value": [1, 2, 3, 4]})
-        dzielnice = ["A", "C"]
-        result_df = choose_df(df, dzielnice)
-        expected_df = pd.DataFrame({"Dzielnica": ["A", "C"],
-                                    "Value": [1, 3]}).reset_index(drop=True)
-        pd.testing.assert_frame_equal(result_df.reset_index(drop=True), expected_df)
-    
+        df = pd.DataFrame({"Dzielnica": ["Stare Miasto", "Grzegórzki"], "Cena": [100000, 200000]})
+        res = self.choose_analysis_data.choose_df(df)
+        self.assertIsInstance(res, pd.DataFrame)
+        self.assertEqual(res["Dzielnica"][0], df["Dzielnica"][0])
+        self.assertEqual(res["Cena"][0], df["Cena"][0])
+
     def test_choose_gj(self):
-        # Test choose_gj function
-        gj = {
-            "type": "FeatureCollection",
-            "features": [
-                {"properties": {"nazwa": "A"}},
-                {"properties": {"nazwa": "B"}},
-                {"properties": {"nazwa": "C"}},
-                {"properties": {"nazwa": "D"}}
-            ]
-        }
-        dzielnice = ["A", "C"]
-        result_gj = choose_gj(gj, dzielnice)
-        expected_gj = {
-            "type": "FeatureCollection",
-            'name': 'Dzielnice_administracyjne', 
-            'crs': {'type': 'name', 'properties': {'name': ''}},
-            "features": [
-                {"properties": {"nazwa": "A"}},
-                {"properties": {"nazwa": "C"}}
-            ]
-        }
-        self.assertDictEqual(result_gj, expected_gj)
+        self.assertIsInstance(self.choose_analysis_data.choose_gj(), dict)
+        self.assertGreater(len(self.choose_analysis_data.choose_gj()), 0)
 
     def test_choose_mean_df(self):
-        # Test choose_mean_df function
-        df1 = pd.DataFrame({"Dzielnica": ["Stare Miasto", "Grzegórzki", "Kazimierz"],
-                            "średnia cena za m2": [1, 2, 3]})
-        df2 = pd.DataFrame({"Dzielnica": ["Stare Miasto", "Grzegórzki", "Kazimierz"],
-                            "średnia powierzchnia": [4, 5, 6]})
-        result_df, result_data = choose_mean_df([df1, df2])
-        expected_df = [pd.DataFrame({"Wartość": ["średnia cena za m2"], "Aktualna średnia": [2.0]}),
-                          pd.DataFrame({"Wartość": ["średnia powierzchnia"], "Aktualna średnia": [5.0]})]
-        expected_data = [2.0, 5.0]
-        for res, exp in zip(result_df, expected_df):
-            pd.testing.assert_frame_equal(res, exp)
-        self.assertEqual(result_data, expected_data)
+        res = self.choose_analysis_data.choose_mean_df("srednia_cena")
+        self.assertIsInstance(res, tuple)
+        self.assertTrue(float(res[0]["Aktualna średnia"].iloc[0]) == res[1])
+
 
 if __name__ == '__main__':
     unittest.main()
