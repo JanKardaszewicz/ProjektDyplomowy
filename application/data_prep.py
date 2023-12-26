@@ -147,7 +147,6 @@ class Data(ABC):
 
 class App_Data(Data):
     """Class to manage application main data"""
-        
     def __init__(self) -> None:
         """
         Class init function to get inital DataFrame and Geojson structures.
@@ -232,6 +231,9 @@ class App_Data(Data):
         MAX_AREA_VALUE = int(self.DF["Powierzchnia"].max()) + 1 
         return MAX_AREA_VALUE
 
+    def get_init_df(self):
+        init_df = pd.read_csv(self.DF_path)
+        return init_df
     """Calculating the data"""
 
 class Display_Data(App_Data):
@@ -392,6 +394,9 @@ class Modify_Data(App_Data):
         if not self.find_df_row(added_row):
             coordinates = self.get_row_coordinates(added_row)
             if coordinates is not None:
+                init_DF = self.get_init_df()
+                init_DF.loc[len(init_DF)] = added_row
+                init_DF.to_csv(self.DF_path)
                 added_row["lat"] = coordinates[0]
                 added_row["lon"] = coordinates[1]
                 added_row["Cena_za_m2"] = self.get_row_price_for_m2(added_row)
