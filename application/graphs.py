@@ -7,7 +7,17 @@ import plotly.express as px
 
 """Graph functions"""
 class Display_Graph(Display_Data):
-    def __init__(self, price_range, area_range) -> None:
+    """
+    Class managing Display Application Graphs.
+    """
+    def __init__(self, price_range: list[float], area_range:list[float]) -> None:
+        """
+        Function initalize Display Data.
+
+        Args:
+            price_range (list[float]): chosen price range
+            area_range (list[float]): chosen area range
+        """
         super().__init__(price_range, area_range)
         
         
@@ -41,8 +51,18 @@ class Display_Graph(Display_Data):
         })
         return fig
     
-class Analysis_Graph(Choose_Analysis_Data):
-    def __init__(self, city_part) -> None:
+class Analysis_Graph(Analysis_Data):
+    """
+    Class managing Analysis Appliaction Graphs.
+    """
+    
+    def __init__(self, city_part: list[str]) -> None:
+        """
+        Function to initialize Analysis Data.
+
+        Args:
+            city_part (list[str]): chosen districts
+        """
         super().__init__(city_part)
         self.city_part = city_part
         
@@ -50,11 +70,6 @@ class Analysis_Graph(Choose_Analysis_Data):
         """
         Function displaying chosen cityparts data.
         
-        :param df: displayed DataFrame
-        :type df: DataFrame
-        :param gj: displayed Geojson
-        :type gj: dict
-
         Returns:
             plotly.express: created figure
         """
@@ -76,7 +91,7 @@ class Analysis_Graph(Choose_Analysis_Data):
         return fig    
 
     def choropleth_graph(self):
-        """Initial analysis layout graph
+        """Choropleth analysis graph displaying mean price of each district.
 
         Returns:
             plotly.express: choropleth graph
@@ -90,12 +105,10 @@ class Analysis_Graph(Choose_Analysis_Data):
 
     def bar_price_graph(self): 
         """
-        Function displaying bar graph of mean price for district
+        Function displaying bar graph of mean price for m2 for district.
 
-        :param df: DataFrame instance
+        :param df: analysis mean DataFrame instance sorted by srednia cena za m2
         :type df: DataFrame
-        :param city_part: chosen districts
-        :type city_part: list[str]
 
         Returns:
             plotly.express: Bar graph
@@ -111,12 +124,11 @@ class Analysis_Graph(Choose_Analysis_Data):
     
     
     def bar_area_graph(self): 
-        """Function displaying bar graph of mean area for district
+        """
+        Function displaying bar graph of mean area for district.
 
-        :param df: DataFrame instance
+        :param df: analysis mean DataFrame instance sorted by srednia powierzchnia
         :type df: DataFrame
-        :param city_part: chosen districts
-        :type city_part: list[str]
 
         Returns:
             plotly.express: Bar graph
@@ -131,8 +143,14 @@ class Analysis_Graph(Choose_Analysis_Data):
         return fig
     
     def bar_mean_graph_area(self):
+        """
+        Function displaying bar graph of combined mean area for every chosen district.
+        
+        Returns:
+            plotly.express: Bar graphs of mean area for chosen districts
+        """
         mean_df, mean_value = self.choose_mean_df("srednia_powierzchnia")
-        fig = px.bar(mean_df, x="Wartość", y= "Aktualna średnia",color="Wartość", color_discrete_map={'Wartość': 'red'},title=f"Średnia powierzchnia: {mean_value:.2f} [m²]" , height=400,width=310)
+        fig = px.bar(mean_df, x="Wartość", y= "Aktualna średnia",color="Wartość", color_discrete_map={"Wartość": "red"},title=f"Średnia powierzchnia: {mean_value:.2f} [m²]" , height=400,width=310)
         fig.update_layout(showlegend=False)
         fig.update_yaxes(range=[50, 100])
         
@@ -140,15 +158,10 @@ class Analysis_Graph(Choose_Analysis_Data):
     
     def bar_mean_graph_price(self):
         """
-        Function displaying bar graph of combined mean price and area for every chosen district
-
-        :param df: DataFrame instances in list
-        :type df: list[DataFrame]
-        :param city_part: chosen districts
-        :type city_part: list[str]
+        Function displaying bar graph of combined mean price for m2 for every chosen district.
 
         Returns:
-            list[plotly.express]: Bar graphs for combined mean price and area
+            plotly.express: Bar graphs of mean price for chosen districts
         """
         mean_df, mean_value = self.choose_mean_df("srednia_cena_za_m2")
         fig = px.bar(mean_df, x="Wartość", y= "Aktualna średnia", title=f"Średnia cena: {mean_value:.2f} [zł/m²]", height=400,width=310)

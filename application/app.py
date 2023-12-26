@@ -1,16 +1,17 @@
 #Project Jan Kardaszewicz 
 from layouts import *
-from dash import Dash, Input, Output, callback_context
+from dash import Dash, Input, Output,State, callback_context
+
+"""INITIALIZE DATA"""
+app_Data = App_Data()
 
 """START APP"""
-Data = Data_Prep()
-"""app with common elements for all layouts"""
 
 app = Dash(__name__, suppress_callback_exceptions=True)
 app.layout = html.Div([
     html.Div([
         html.Label(["Rodzaj wyświetlania:"], style={"font-weight": "bold", "text-align": "center"}),
-        dcc.Dropdown(["Wizualizacja", "Analiza"], "Wizualizacja", id="display-dropdown"),    
+        dcc.Dropdown(["Wizualizacja", "Analiza","+dodaj"], "Wizualizacja", id="display-dropdown"),    
     ]),
     html.Div(id="current-layout"),
 ])
@@ -26,7 +27,7 @@ app.layout = html.Div([
     Input("display-dropdown", "value"),
 )
 
-def display(display_type: str):
+def change_layout(display_type: str):
     """
     Callback function changing displayed layout according to dropdown values.
 
@@ -37,9 +38,11 @@ def display(display_type: str):
         dash.html: updated layout
     """
     if display_type == "Wizualizacja":
-        return Display_Layout(price_range=[Data.return_MIN_PRICE_VALUE(), Data.return_MAX_PRICE_VALUE()], area_range = [Data.return_MIN_AREA_VALUE(), Data.return_MAX_AREA_VALUE( )]).return_layout()
+        return Display_Layout(price_range=[app_Data.return_MIN_PRICE_VALUE(), app_Data.return_MAX_PRICE_VALUE()], area_range = [app_Data.return_MIN_AREA_VALUE(), app_Data.return_MAX_AREA_VALUE( )]).return_layout()
     if display_type == "Analiza":
         return Analysis_Layout(city_part=[]).return_layout()
+    if display_type == "+dodaj":
+        return Modify_Layout().return_layout()
 
 
 """DISPLAY CALLBACK"""
@@ -52,7 +55,7 @@ def display(display_type: str):
     Input("area-range-slider", "value")
 )
 
-def update_output(on_administrative_layer: bool, size_switch_value: bool, price_range: list[float], area_range: list[float]):
+def change_display_layout(on_administrative_layer: bool, size_switch_value: bool, price_range: list[float], area_range: list[float]):
     """
     Callback function changing graph according to switches values.
 
@@ -64,11 +67,11 @@ def update_output(on_administrative_layer: bool, size_switch_value: bool, price_
     Returns:
         dash.dcc: updated graph 
     """
-    df = Display_Graph(price_range=price_range, area_range=area_range)
+    graph = Display_Graph(price_range=price_range, area_range=area_range)
     if size_switch_value:
-        fig = df.initial_display(size="Cena", on_administrative_layer=on_administrative_layer)
+        fig = graph.initial_display(size="Cena", on_administrative_layer=on_administrative_layer)
     else:
-        fig = df.initial_display(size="Powierzchnia", on_administrative_layer=on_administrative_layer)
+        fig = graph.initial_display(size="Powierzchnia", on_administrative_layer=on_administrative_layer)
 
     return [dcc.Graph(figure=fig)]
 
@@ -125,7 +128,7 @@ def display_text2(value: bool):
 )
 def sync_checklists(districts_selected: list[str], all_selected: list[str]):
     """
-    Callback function to sync 'Wszystkie' button in checklists with all the others.
+    Callback function to sync "Wszystkie" button in checklists with all the others.
 
     :param districts_selected: all parts of Kraków selected in checklist
     :type districts_selected: list[str]
@@ -139,9 +142,9 @@ def sync_checklists(districts_selected: list[str], all_selected: list[str]):
     ctx = callback_context
     input_id = ctx.triggered[0]["prop_id"].split(".")[0]
     if input_id == "districts-checklist":
-        all_selected = ["Wszystkie"] if set(districts_selected) == set(Data.return_districts()) else []
+        all_selected = ["Wszystkie"] if set(districts_selected) == set(app_Data.return_districts()) else []
     else:
-        districts_selected = Data.return_districts() if all_selected else []
+        districts_selected = app_Data.return_districts() if all_selected else []
     return districts_selected, all_selected
 
 
@@ -167,17 +170,39 @@ def change_displayed_city_part(city_part: list[str], check_all: list[str]):
     Returns:
         List[dash.dcc, plotly.express, plotly.express, plotly.express, plotly.express]: figures set accordingly to checklists checked values
     """
-    obj = Analysis_Graph(city_part)
+    graph = Analysis_Graph(city_part)
 
     if check_all:
-        return [dcc.Graph(figure=obj.choropleth_graph()), obj.bar_price_graph(), obj.bar_area_graph(), obj.bar_mean_graph_area(), obj.bar_mean_graph_price()]
+        return [dcc.Graph(figure=graph.choropleth_graph()), graph.bar_price_graph(), graph.bar_area_graph(), graph.bar_mean_graph_area(), graph.bar_mean_graph_price()]
     
     else:    
-        return [dcc.Graph(figure=obj.city_part_graph()), obj.bar_price_graph(), obj.bar_area_graph(), obj.bar_mean_graph_area(),  obj.bar_mean_graph_price()]
+        return [dcc.Graph(figure=graph.city_part_graph()), graph.bar_price_graph(), graph.bar_area_graph(), graph.bar_mean_graph_area(),  graph.bar_mean_graph_price()]
         
 
-    
+@app.callback(
+    Output("output-container", "children"),
+    Input("submit-button", "n_clicks"),
+    State("input_dzielnica", "value"),
+    State("input_ulica", "value"),
+    State("input_cena","value"),
+    State("input_powierzchnia", "value"),
+    prevent_initial_call=True
+) 
+def add_row(button_clicks:int, input_dzielnica: str, input_ulica: str, input_cena: float, input_powierzchnia: float):
+    """
+    Callback function managing adding new data row to collection
 
+    Args:
+        button_clicks (int): submit button clicks
+        input_dzielnica (str): city_part of added data
+        input_ulica (str): street of added data
+        input_cena (float): price of added data
+        input_powierzchnia (float): area of added data
 
+    Returns:
+        str: Message if data addition was successful
+    """
+    data = Modify_Data()    
+    return data.add_data(input_dzielnica, input_ulica, input_cena, input_powierzchnia)
 if __name__ == "__main__":
     app.run_server(debug=True)
