@@ -283,9 +283,10 @@ class Analysis_Data(App_Data):
             city_part (list[str]): chosen city parts
         """
         super().__init__()
+        df = self.return_df()
         self.city_part = city_part
         self.mean_df = self.set_means_DataFrame()
-        self.DF = self.choose_df(self.DF)
+        self.DF = self.choose_df(df)
         self.GJ = self.choose_gj()
         
     def return_mean_df(self):
