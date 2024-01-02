@@ -128,6 +128,16 @@ class Data(ABC):
         df = df.drop("LatLong", axis=1)
         df = df.dropna()
         return df
+    
+    def return_districts(self):
+        """
+        Function returning class constant.
+
+        Returns:
+            list[str]: all districts of Krakow
+        """
+        return self.districts
+    
 
     def read_file(self, file_name: str):
         """Function to read files from data directory in Workspace.
@@ -180,17 +190,6 @@ class App_Data(Data):
         """
         return self.GJ
       
-    
-    def return_districts(self):
-        """
-        Function returning class constant.
-
-        Returns:
-            list[str]: all districts of Krakow
-        """
-        return self.districts
-    
-    
     def return_MIN_PRICE_VALUE(self):
         """
         Function returning class constant.
@@ -249,10 +248,11 @@ class Display_Data(App_Data):
             area_range (list[float]): set area range for DataFrame
         """
         super().__init__()
-        self.DF = self.set_df_price_and_area_range(price_range, area_range)
+        df = self.return_df()
+        self.DF = self.set_df_price_and_area_range(df, price_range, area_range)
         
         
-    def set_df_price_and_area_range(self, price_range: list[float], area_range: list[float]):
+    def set_df_price_and_area_range(self, df: DataFrame, price_range: list[float], area_range: list[float]):
         """Funciton choosing dispaly DataFrame according to sliders values.
 
         :param price_range: price range-slider values
@@ -263,8 +263,7 @@ class Display_Data(App_Data):
             Returns:
                 DataFrame: chosen Datafreme with Price and Area values in sliders range.
         """
-        df_range = self.DF[(self.DF["Cena"] >= price_range[0]) & (self.DF["Cena"] <= price_range[1]) & (self.DF["Powierzchnia"] >= area_range[0]) & (self.DF["Powierzchnia"] <= area_range[1])]
-            
+        df_range = df[((df["Cena"] >= price_range[0]) & (df["Cena"] <= price_range[1]) & (df["Powierzchnia"] >= area_range[0]) & (df["Powierzchnia"] <= area_range[1]))]
         return df_range              
 
     
@@ -284,10 +283,12 @@ class Analysis_Data(App_Data):
         """
         super().__init__()
         df = self.return_df()
-        self.city_part = city_part
-        self.mean_df = self.set_means_DataFrame()
-        self.DF = self.choose_df(df)
-        self.GJ = self.choose_gj()
+        gj = self.return_gj()
+        self.mean_df = self.set_means_DataFrame(df)
+        self.DF = self.choose_df(df, city_part)
+        self.GJ = self.choose_gj(gj, city_part)
+        self.mean_area = self.choose_mean_df("srednia_powierzchnia", city_part)  
+        self.mean_price = self.choose_mean_df("srednia_cena_za_m2", city_part)
         
     def return_mean_df(self):
         """
@@ -298,42 +299,67 @@ class Analysis_Data(App_Data):
         """
         return self.mean_df
     
-    def set_means_DataFrame(self):
+    def return_mean_area(self):
         """
-        Function setting mean DataFrame instatnce - calculating mean area, price, price for m2 for DataFrame in Data object.
+        Return summary mean area of chosen city parts.
 
         Returns:
-            DataFrame: mean DataFrame
+            DataFrame: mean DataFrame 
+        """
+        return self.mean_area
+    
+    def return_mean_price(self):
+        """
+        Return summary mean price for m2 of chosen city parts.
+
+        Returns:
+            DataFrame: mean DataFrame 
+        """
+        return self.mean_price
+    
+    def set_means_DataFrame(self, df: DataFrame):
+        """
+        Function setting mean DataFrame instatnce - calculating mean area, price, price for m2 for DataFrame in Data object.
+        
+        :param df: DataFrame instance (initial DF)
+        :type df: Dataframe
+
+        Returns:
+            DataFrame: calculated mean DataFrame
         """
         dzielnice_srednia = {"Dzielnica" : [], "srednia_cena": [], "srednia_powierzchnia": [], "srednia_cena_za_m2": []}
         for dzielnica in set(self.DF["Dzielnica"]):
-            df = self.DF[self.DF["Dzielnica"] == dzielnica]
+            chosen_df = df[df["Dzielnica"] == dzielnica]
             dzielnice_srednia["Dzielnica"].append(dzielnica)
-            dzielnice_srednia["srednia_cena"].append(round(df["Cena"].mean(),2))
-            dzielnice_srednia["srednia_cena_za_m2"].append(round(df["Cena_za_m2"].mean(),2))
-            dzielnice_srednia["srednia_powierzchnia"].append(round(df["Powierzchnia"].mean(),2))
+            dzielnice_srednia["srednia_cena"].append(round(chosen_df["Cena"].mean(),2))
+            dzielnice_srednia["srednia_cena_za_m2"].append(round(chosen_df["Cena_za_m2"].mean(),2))
+            dzielnice_srednia["srednia_powierzchnia"].append(round(chosen_df["Powierzchnia"].mean(),2))
         return pd.DataFrame(dzielnice_srednia)
     
         
-    def choose_df(self, df):
+    def choose_df(self, df: DataFrame, city_part: list[str]):
         """
         Function choosing desired DataFrame.
         
         :param df: DataFrame instance (could be mean_df or initial DF)
         :type df: Dataframe
+        :param city_part: chosen city parts
+        :type city_part: list[str]
         
         Returns:
             DataFrame: dataframe created according to chosen districts
         """
-        new_df = df.loc[df["Dzielnica"].isin(self.city_part)]
+        new_df = df.loc[df["Dzielnica"].isin(city_part)]
         return new_df
     
-    def choose_gj(self):
+    def choose_gj(self, gj: dict, city_part: list[str]):
         """
         Function choosing desired Geojson.
         
-        :param self.gj: initial Geojson file
-        :type self.gj: geojson
+        :param gj: initial Geojson file
+        :type gj: geojson
+        :param city_part: chosen city parts
+        :type city_part: list[str]
 
         Returns:
             dict: geojson created according to chosen districts
@@ -345,27 +371,29 @@ class Analysis_Data(App_Data):
         "properties": {"name": ""}},
         "features": []}
 
-        for i in self.GJ["features"]:
-            if i["properties"]["nazwa"] in self.city_part:
+        for i in gj["features"]:
+            if i["properties"]["nazwa"] in city_part:
                 new_gj["features"].append(i)
         
-        self.GJ = new_gj
         return new_gj
     
-    def choose_mean_df(self, value: str):
+    def choose_mean_df(self, value: str, city_part: list[str]):
         """
         Function calculating mean vaules of DataFrame parameters.
 
         :param value: which coulm of mean_df should be considered
         :type value: str
+        :param city_part: chosen city parts
+        :type city_part: list[str]
         
         Returns:
             touple(DataFrame, int): touple of chosen DataFrame and mean value.
         """
-        df = self.choose_df(self.mean_df)
+        df = self.choose_df(self.mean_df, city_part)
         res_data = df[value].mean()
         res_df = pd.DataFrame({"Wartość": value, "Aktualna średnia": [res_data]})
-        return res_df, res_data
+        ret_dict = {"df": res_df, "value": res_data}
+        return ret_dict
   
 class Modify_Data(App_Data):
     """Class to maange modifying application data."""
@@ -397,11 +425,13 @@ class Modify_Data(App_Data):
             if coordinates is not None:
                 init_DF = self.get_init_df()
                 init_DF.loc[len(init_DF)] = added_row
+                init_DF = init_DF.loc[:, ["Dzielnica", "Cena","Ulica", "Powierzchnia"]]
                 init_DF.to_csv(self.DF_path)
                 added_row["lat"] = coordinates[0]
                 added_row["lon"] = coordinates[1]
                 added_row["Cena_za_m2"] = self.get_row_price_for_m2(added_row)
                 self.DF.loc[len(self.DF)] = added_row
+                self.DF = self.DF.loc[:, ["Dzielnica", "Cena","Ulica", "Powierzchnia", "Cena_za_m2", "lat", "lon"]]
                 self.DF.to_csv(self.ready_file_path)
                 return f"Inwestycja dodana pomyślnie: {added_row}"
             else:

@@ -3,7 +3,7 @@ from layouts import *
 from dash import Dash, Input, Output,State, callback_context
 
 """INITIALIZE DATA"""
-app_Data = App_Data()
+data = Data()
 
 """START APP"""
 
@@ -38,9 +38,9 @@ def change_layout(display_type: str):
         dash.html: updated layout
     """
     if display_type == "Wizualizacja":
-        return Display_Layout(price_range=[app_Data.return_MIN_PRICE_VALUE(), app_Data.return_MAX_PRICE_VALUE()], area_range = [app_Data.return_MIN_AREA_VALUE(), app_Data.return_MAX_AREA_VALUE( )]).return_layout()
+        return Display_Layout().return_layout()
     if display_type == "Analiza":
-        return Analysis_Layout(city_part=[]).return_layout()
+        return Analysis_Layout().return_layout()
     if display_type == "+dodaj":
         return Modify_Layout().return_layout()
 
@@ -142,9 +142,9 @@ def sync_checklists(districts_selected: list[str], all_selected: list[str]):
     ctx = callback_context
     input_id = ctx.triggered[0]["prop_id"].split(".")[0]
     if input_id == "districts-checklist":
-        all_selected = ["Wszystkie"] if set(districts_selected) == set(app_Data.return_districts()) else []
+        all_selected = ["Wszystkie"] if set(districts_selected) == set(data.return_districts()) else []
     else:
-        districts_selected = app_Data.return_districts() if all_selected else []
+        districts_selected = data.return_districts() if all_selected else []
     return districts_selected, all_selected
 
 

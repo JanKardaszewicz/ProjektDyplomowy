@@ -51,7 +51,18 @@ class TestDisplayData(unittest.TestCase):
         self.display_data = Display_Data(price_range=[0, 1000000], area_range=[0, 200])
 
     def test_set_df_price_and_area_range(self):
-        self.assertIsInstance(self.display_data.set_df_price_and_area_range([0, 1000000], [0, 200]), pd.DataFrame)
+        df = pd.DataFrame({"Dzielnica": ["A", "B", "C", "D"],
+                    "Powierzchnia": [1, 2, 3, 4],
+                    "Cena": [100, 200, 300, 400]})
+        
+        result_df = self.display_data.set_df_price_and_area_range(df, [150, 350], [3, 4])
+        self.assertIsInstance(result_df , pd.DataFrame)
+        
+        expected_df = pd.DataFrame({"Dzielnica": ["C"],
+                                    "Powierzchnia": [3],
+                                    "Cena": [300]}).reset_index(drop=True)
+        
+        pd.testing.assert_frame_equal(result_df.reset_index(drop=True), expected_df)
 
 
 class TestAnalysisData(unittest.TestCase):
@@ -62,24 +73,45 @@ class TestAnalysisData(unittest.TestCase):
     def test_return_mean_df(self):
         self.assertIsInstance(self.analysis_data.return_mean_df(), pd.DataFrame)
 
-    def test_set_means_DataFrame(self):
-        self.assertIsInstance(self.analysis_data.set_means_DataFrame(), pd.DataFrame)
-
+    def test_return_mean_area(self):
+        self.assertIsInstance(self.analysis_data.return_mean_area(), dict)
+        
     def test_choose_df(self):
-        df = pd.DataFrame({"Dzielnica": ["Stare Miasto", "Grzegórzki"], "Cena": [100000, 200000]})
-        res = self.analysis_data.choose_df(df)
-        self.assertIsInstance(res, pd.DataFrame)
-        self.assertEqual(res["Dzielnica"][0], df["Dzielnica"][0])
-        self.assertEqual(res["Cena"][0], df["Cena"][0])
-
+        df = pd.DataFrame({"Dzielnica": ["A", "B", "C", "D"],
+                    "Value": [1, 2, 3, 4]})
+        city_part = ["A", "C"]
+        result_df = self.analysis_data.choose_df(df, city_part)
+        expected_df = pd.DataFrame({"Dzielnica": ["A", "C"],
+                                    "Value": [1, 3]}).reset_index(drop=True)
+        pd.testing.assert_frame_equal(result_df.reset_index(drop=True), expected_df)
+    
     def test_choose_gj(self):
-        self.assertIsInstance(self.analysis_data.choose_gj(), dict)
-        self.assertGreater(len(self.analysis_data.choose_gj()), 0)
+        gj = {
+            "type": "FeatureCollection",
+            "features": [
+                {"properties": {"nazwa": "A"}},
+                {"properties": {"nazwa": "B"}},
+                {"properties": {"nazwa": "C"}},
+                {"properties": {"nazwa": "D"}}
+            ]
+        }
+        city_part = ["A", "C"]
+        result_gj = self.analysis_data.choose_gj(gj, city_part)
+        expected_gj = {
+            "type": "FeatureCollection",
+            'name': 'Dzielnice_administracyjne', 
+            'crs': {'type': 'name', 'properties': {'name': ''}},
+            "features": [
+                {"properties": {"nazwa": "A"}},
+                {"properties": {"nazwa": "C"}}
+            ]
+        }
+        self.assertDictEqual(result_gj, expected_gj)
 
     def test_choose_mean_df(self):
-        res = self.analysis_data.choose_mean_df("srednia_cena")
-        self.assertIsInstance(res, tuple)
-        self.assertTrue(float(res[0]["Aktualna średnia"].iloc[0]) == res[1])
+        res = self.analysis_data.choose_mean_df("srednia_cena", city_part=["Stare Miasto", "Grzegórzki"])
+        self.assertIsInstance(res, dict)
+        self.assertTrue(float(res["df"]["Aktualna średnia"].iloc[0]) == res["value"])
 
 class Test_Modify_Data(unittest.TestCase):
     def setUp(self):

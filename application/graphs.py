@@ -96,8 +96,8 @@ class Analysis_Graph(Analysis_Data):
         Returns:
             plotly.express: choropleth graph
         """
-        df = self.return_mean_df()
-        fig = px.choropleth_mapbox(df, geojson=self.GJ, color="srednia_cena",
+        mean_df = self.return_mean_df()
+        fig = px.choropleth_mapbox(mean_df, geojson=self.GJ, color="srednia_cena",
                             locations="Dzielnica",featureidkey="properties.nazwa",
                             mapbox_style=self.MAPBOX_STYLE, zoom=10,center = self.CRACOW_CENTER, labels={"name": "Dzielnica"}, width=925, height=450)
         fig.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
@@ -113,11 +113,11 @@ class Analysis_Graph(Analysis_Data):
         Returns:
             plotly.express: Bar graph
         """ 
-        df = self.return_mean_df().sort_values(by="srednia_cena_za_m2")
-        fig = px.bar(df, x="Dzielnica", y="srednia_cena_za_m2", title="Średnia cena za metr kwardatowy względem dzielnic", height=400,width=1250)
+        mean_df = self.return_mean_df().sort_values(by="srednia_cena_za_m2")
+        fig = px.bar(mean_df, x="Dzielnica", y="srednia_cena_za_m2", title="Średnia cena za metr kwardatowy względem dzielnic", height=400,width=1250)
         fig.update_traces(marker_color="blue")
         highlighted_color = "blue"
-        colors = [highlighted_color if cat in self.city_part else "lightskyblue" for cat in df["Dzielnica"]]
+        colors = [highlighted_color if cat in self.city_part else "lightskyblue" for cat in mean_df["Dzielnica"]]
         fig.update_traces(marker_color=colors)    
 
         return fig
@@ -133,11 +133,11 @@ class Analysis_Graph(Analysis_Data):
         Returns:
             plotly.express: Bar graph
         """
-        df = self.return_mean_df().sort_values(by="srednia_powierzchnia")
-        fig = px.bar(df, x="srednia_powierzchnia", y="Dzielnica", title="Średnia powierzchnia mieszkania względem dzielnic", height=450, width=950, orientation="h")
+        mean_df = self.return_mean_df().sort_values(by="srednia_powierzchnia")
+        fig = px.bar(mean_df, x="srednia_powierzchnia", y="Dzielnica", title="Średnia powierzchnia mieszkania względem dzielnic", height=450, width=950, orientation="h")
         fig.update_traces(marker_color="indigo")
         highlighted_color = "indigo"
-        colors = [highlighted_color if cat in self.city_part else "mediumorchid" for cat in df["Dzielnica"]]
+        colors = [highlighted_color if cat in self.city_part else "mediumorchid" for cat in mean_df["Dzielnica"]]
         fig.update_traces(marker_color=colors)
         
         return fig
@@ -149,8 +149,8 @@ class Analysis_Graph(Analysis_Data):
         Returns:
             plotly.express: Bar graphs of mean area for chosen districts
         """
-        mean_df, mean_value = self.choose_mean_df("srednia_powierzchnia")
-        fig = px.bar(mean_df, x="Wartość", y= "Aktualna średnia",color="Wartość", color_discrete_map={"Wartość": "red"},title=f"Średnia powierzchnia: {mean_value:.2f} [m²]" , height=400,width=310)
+        mean_area = self.return_mean_area()
+        fig = px.bar(mean_area["df"], x="Wartość", y= "Aktualna średnia",color="Wartość", color_discrete_map={"Wartość": "red"},title=f"Średnia powierzchnia: {mean_area['value']:.2f} [m²]" , height=400,width=310)
         fig.update_layout(showlegend=False)
         fig.update_yaxes(range=[50, 100])
         
@@ -163,8 +163,8 @@ class Analysis_Graph(Analysis_Data):
         Returns:
             plotly.express: Bar graphs of mean price for chosen districts
         """
-        mean_df, mean_value = self.choose_mean_df("srednia_cena_za_m2")
-        fig = px.bar(mean_df, x="Wartość", y= "Aktualna średnia", title=f"Średnia cena: {mean_value:.2f} [zł/m²]", height=400,width=310)
+        mean_price = self.return_mean_price()
+        fig = px.bar(mean_price["df"], x="Wartość", y= "Aktualna średnia", title=f"Średnia cena: {mean_price['value']:.2f} [zł/m²]", height=400,width=310)
         fig.update_yaxes(range=[8000, 25000])
         
         return fig

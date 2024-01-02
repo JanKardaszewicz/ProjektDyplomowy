@@ -9,7 +9,7 @@ class Display_Layout(Display_Graph):
     """
     Class to manage Display Layout.
     """ 
-    def __init__(self, price_range: list[float], area_range:list[float]) -> None:
+    def __init__(self) -> None:
         """
         Init function to initialize Display_Graph instance.
 
@@ -17,7 +17,11 @@ class Display_Layout(Display_Graph):
             price_range (list[float]): chosen price range
             area_range (list[float]): chosen area range
         """
+        data = App_Data()
+        price_range = [data.return_MIN_PRICE_VALUE(), data.return_MAX_PRICE_VALUE()]
+        area_range = [data.return_MIN_AREA_VALUE(), data.return_MAX_AREA_VALUE( )]
         super().__init__(price_range, area_range)
+        
     def return_layout(self):
         """
         Function organising initial display layout for application.
@@ -75,7 +79,7 @@ class Analysis_Layout(Analysis_Graph):
     """
     Class to manage Analysis Layout.
     """ 
-    def __init__(self, city_part: list[str]) -> None:
+    def __init__(self, city_part: list[str] = []) -> None:
         """
         Init funciton to initialize Analysis Graph instance.
 
