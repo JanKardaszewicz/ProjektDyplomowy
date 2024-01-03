@@ -143,6 +143,8 @@ class Modify_Layout(Modify_Data):
         """
         super().__init__()
         self.df = self.DF.loc[:, ["Dzielnica", "Cena","Ulica", "Powierzchnia", "Cena_za_m2"]]
+        self.display_df = self.df.rename(columns={'Cena': "Cena [PLN]", "Powierzchnia" : "Powierzchnia [m²]", "Cena_za_m2" : "Cena za m² [PLN/m²]"}, inplace=False)
+
 
     def return_layout(self):
         """
@@ -173,7 +175,7 @@ class Modify_Layout(Modify_Data):
             html.Div([
                 html.I("Dostępne dane", style={"font-size": "25px","font-weight": "bold"}),
                 html.Br(),
-                dash_table.DataTable(self.df.to_dict("records"), [{"name": i, "id": i} for i in self.df.columns],
+                dash_table.DataTable(self.display_df.to_dict("records"), [{"name": i, "id": i} for i in self.display_df.columns],
                                      page_size=22,
                                      filter_action="native",
                                      id="datatable",

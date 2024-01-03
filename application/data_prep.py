@@ -435,9 +435,9 @@ class Modify_Data(App_Data):
                 self.DF.to_csv(self.ready_file_path)
                 return f"Inwestycja dodana pomyślnie: {added_row}"
             else:
-                return "Nie znaleziona współrzędnych podanego adresu!"
+                return "Nie znaleziono współrzędnych podanego adresu!"
         else:
-            return "Znaleziono istniejącą już taka inwestycje!"
+            return "Inwestycja już istnieje w bazie!"
         
     def find_df_row(self, added_row):
         """ 

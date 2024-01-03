@@ -164,7 +164,7 @@ class Analysis_Graph(Analysis_Data):
             plotly.express: Bar graphs of mean price for chosen districts
         """
         mean_price = self.return_mean_price()
-        fig = px.bar(mean_price["df"], x="Wartość", y= "Aktualna średnia", title=f"Średnia cena: {mean_price['value']:.2f} [zł/m²]", height=400,width=310)
+        fig = px.bar(mean_price["df"], x="Wartość", y= "Aktualna średnia", title=f"Średnia cena: {mean_price['value']:.2f} [PLN/m²]", height=400,width=310)
         fig.update_yaxes(range=[8000, 25000])
         
         return fig
