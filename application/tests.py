@@ -138,11 +138,11 @@ class Test_Modify_Data(unittest.TestCase):
     def test_add_data_missing_coordinates(self):
         # Test adding an investment with missing coordinates
         result = self.test_data.add_data("Stare Miasto", "NonexistentStreet", 400.0, 80.0)
-        self.assertEqual(result, "Nie znaleziona współrzędnych podanego adresu!")
+        self.assertEqual(result, "Nie znaleziono współrzędnych podanego adresu!")
     
     def test_add_data_row_exists(self):
         result = self.test_data.add_data("Stare Miasto", "Świętego Sebastiana 18", 631375, 24.5)
-        self.assertEqual(result, "Znaleziono istniejącą już taka inwestycje!")
+        self.assertEqual(result, "Inwestycja już istnieje w bazie!")
 
 
 if __name__ == "__main__":
